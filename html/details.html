@@ -10,14 +10,8 @@
 
 <div data-ng-controller="detailsController">
 	<div class="container">
-		<div class="row">
-			<div class="col-lg-7">  
+		 <form name="myForm" id="loginForm" class="pure-form login-form" data-ng-submit="submitForm(myForm.$valid)">
 				<h3><span style="color:blue">Select the Required service</span></h3>
-			</div>
-		</div>
-	</div>	
-		
-	<div class="container">								
 		<div class="row">
 			<div class="col-lg-7"> 	
 				<table class="table  table-bordered">
@@ -75,11 +69,11 @@
 				</table>
 			</div>
 		</div>
-	</div>
+	
 
-	<div class="container">
+	
 		<h3><span style="color:blue">Please Enter Your Details</span></h3>
-			<form name="myForm" id="loginForm" class="pure-form login-form" data-ng-submit=submit()>
+			
   				<div class="row">
   					<div class="col-lg-7">
    						<label for="Name"><span style="color:black">Name</span></label>
@@ -173,7 +167,7 @@
 						</table>   
 					</div> 
       			</div>   
-              	<button id="open" class="btn btn-success"  ng-disabled="myForm.$error.pattern "   data-ng-click="submitForm()"><span style="color:#FFFFFF">Register</span></button>         
+              	<button id="open" class="btn btn-success"  ng-disabled="myForm.$error.pattern "  ><span style="color:#FFFFFF">Register</span></button>         
 			</form><br>
 	</div>
      
