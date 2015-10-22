@@ -1,0 +1,41 @@
+
+<div class="container">
+	<br><div class="row">
+			<div class="col-lg-6"> 
+				<div class="panel panel-default">
+						<div class="panel-heading"><span style="color:red">WELCOME &nbsp </span>{{detailsforuser[0].fullName | uppercase}}</div>
+				</div>
+			</div>
+			
+			<div class="col-lg-2">
+				<button type="button" id="close" class="btn btn-success" data-ng-click="AnotherService()" ><span style="color:#006600">Apply for new service</span></button> 
+			</div>
+		</div>
+</div>		
+						
+<div class="container">				
+	<div class="row">
+		<div class="col-lg-7"> 
+			<table class="table table-hover">
+		 		<thead>
+		 			<tr>
+		 				<th>Id</th>
+		 	 			<th>ServiceId</th>
+      			 		<th>ServiceName</th>
+      					<th>Status</th>
+      				</tr>
+		 		</thead>
+		 						
+				<tbody>
+		 			<tr data-ng-repeat="detail in detailsforuser">
+		 				<td><B><span style="color:black">{{detail.id  }}</span></B> </td>
+		 	 			<td><span style="color:black"><B>{{detail.serviceType.serviceId}}</B></span></td>
+		 	 			<td><span style="color:black"><B>{{detail.serviceType.serviceName}}</B></span></td>
+		 	 			<td><span style="color:blue"><B>{{detail.status.status}}</B></span></td>
+		 	 			<td><input type="button" class="btn btn-success" data-ng-click="viewdetails(detail.id)" value="View"></td>
+				 	</tr> 
+		 		</tbody>
+			</table>
+		</div>
+	</div>
+</div>
