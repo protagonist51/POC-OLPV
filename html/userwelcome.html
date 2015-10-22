@@ -1,0 +1,89 @@
+<style>
+.container-fluid { 
+  padding-left: 150px;
+  padding-right: 10px;
+}
+</style>
+
+<div class="container">
+	<br><div class="row">
+			<div class="col-lg-6">
+				<div class="panel panel-default">
+					<span style="color:blue">&nbsp;	WELCOME</span> &nbsp;	<span style="color:red"> <B> {{res.fullName |  uppercase}} </B> </span><br>
+				</div>
+			</div>
+			
+			<div class="col-lg-2">
+				<button type="button" id="close" class="btn btn-success" data-ng-click="Back()" ><span style="color:#006600">Back</span></button> 
+			</div>
+		</div>	
+</div>
+		
+<div class="container-fluid">	
+	<div class="row">
+		<div class="col-lg-9"><br><br><br>
+			<div ui-layout-container size="33%"  >
+				<div class="jumbotron">
+					<h4><span style="color:blue">DETAILS ENTERED BY YOU...</span></h4><br>
+						<form id="loginForm"  >
+				 			<label for="name">Full Name</label>
+				 				<span style="padding-left:63px">
+				 		 			<B>-&nbsp;	{{res.fullName		 |  uppercase}} </B>
+				 				</span><br>
+				 		
+				 		 	<label>FATHER'S NAME </label>
+				 				 <span style="padding-left:19px">
+				 					<B>	-&nbsp; {{res.fatherName 	 |  uppercase}}</B>
+				 				 </span><br>
+				 		
+				 			 <label>GENDER 	</label>
+				 	  			 <span style="padding-left:71px">
+				 					<B>-&nbsp;	{{res.gender		 |  uppercase}} </B>
+				 				 </span><br>
+				 			
+			 				<label>	NATIONALITY	</label>
+			 	 				<span style="padding-left:40px">
+				 					<B>-&nbsp;	{{res.nationality	 |  uppercase}}</B>
+				 				</span><br>
+				 			
+				 			<label>	CONTACT NO	</label>
+				 	 			<span style="padding-left:40px">
+				 					<B>-&nbsp;	{{res.contactNumber  |  uppercase}} </B>
+				 				</span><br>
+				 	
+				 			<label>	ADDRESS	</label>
+				 				 <span style="padding-left:65px">
+				 					<B>-&nbsp;	{{res.address 		 |  uppercase}} </B>
+				 				</span><br>
+				 		
+				 			<label>	DOB		</label>
+				 			 	<span style="padding-left:100px">
+				 					<B>-&nbsp;	{{res.dateofbirth | date : 'MM-dd-yyyy'}} </B>
+				 				</span><br>
+				 				
+				 			<label>	STATUS		</label>	
+				 				<span style="padding-left:77px">
+				 					<B>-&nbsp;	{{res.status.status |  uppercase}} </B>
+				 				</span><br>
+						</form>
+				</div>
+			</div>
+		</div> 
+	</div>	
+</div>
+	
+<div class="container">  
+   <table >
+  		<tbody>
+  			<tr> 
+  				<td  ng-repeat="pdfs in doc">
+  		 			<iframe src="{{pdfs.docPath}}" width="400" height="500"></iframe>
+  				</td>
+ 		 	</tr>
+  		</tbody>
+  	</table>
+</div>
+
+	 
+	 
+
