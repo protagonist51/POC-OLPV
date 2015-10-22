@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+      <meta charset="utf-8">
+      	<title>OLPV</title>
+ 			<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+			<link href="bootstrap/css/docs.min.css" rel="stylesheet">
+			<link href="js/angular.min.js.map" rel="map">
+			<link href="js/angular-file-upload.min.map" rel="map">
+			<style>
+				.footer {
+ 					position: relative;
+		 			margin-top: 250px; /* negative value of footer height */
+ 					height: 5px;
+ 					padding-top:10px;
+ 					padding-left:500px
+					}  
+				div.transbox {
+  					background-color:#C6C6AA;
+  					border: 0px solid black;
+  					height:100%;
+  					width : 100%;
+  					padding:0;
+  					margin:center;
+ 					}
+				body {
+  					background-image: url("images/Banglore.jpg");
+  					background-size: cover;
+  					background-repeat: no-repeat;
+  				  	}
+   				/* To diaplay password mismatch message */   
+  
+  				.msg-block {
+   					 margin-top:5px;
+					}
+				.msg-error {
+   				 	color:#F00;
+    				font-size:14px;
+					}   
+  			</style>
+					<script type="text/javascript" src="js/angular.min.js"></script> 
+	  				<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-resource.js"></script>
+	       			<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.28/angular-route.min.js"></script>
+	       			<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.1/ui-bootstrap-tpls.min.js"></script>
+	       			
+	 				<script type="text/javascript" src="js/angular-file-upload-all.js"></script>
+	 				<script src="jquery/jquery.min.js"></script>
+					<script src="jquery/jquery-ui.js"></script>
+					<script src="bootstrap/js/bootstrap.min.js"></script>
+					
+					<script type="text/javascript" src="js/main.js"></script> 
+					<script type="text/javascript" src="js/loginController.js"></script>
+	 				<script type="text/javascript" src="js/detailsController.js"></script>
+	 		    	<script type="text/javascript" src="js/viewDetailsController.js"></script> 
+	 		    	<script type="text/javascript" src="js/welcomeController.js"></script>
+	 		    	<script type="text/javascript" src="js/adminController.js"></script>
+	 				<script type="text/javascript" src="js/adminEditController.js"></script>
+	 </head>
+   	<body ng-app="myApp" >
+    				
+    			<nav class="navbar navbar-inverse ">
+    				<div data-ng-controller="LogoutCtrl"  ng-init="logoutInit()" >
+    					<div align="right">
+    						<input type="button" class="btn btn-danger" data-ng-click="Logout()" ng-hide="logoutHide" value="Log-out">
+    					</div>
+    				</div>
+    				
+    						
+        			<div class="container">
+        				<div class="navbar-header">
+           					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+              				<span class="sr-only">Toggle navigation</span>
+              				<span class="icon-bar"></span>
+              				<span class="icon-bar"></span>
+              				<span class="icon-bar"></span>
+            				</button>
+            				<a class="navbar-brand" href="#"><span style="color:#009933">How it works</span></a>
+          				</div>
+          				
+          				<div class="navbar-collapse collapse">
+            			 <ul class="nav navbar-nav">
+              					<li><a href="#">Home</a></li>
+              					<li><a href="#about">About</a></li>
+              					<li><a href="#contact">Contact</a></li>
+               					<li><a href="#contact">Support</a></li>
+                				<li><a href="#contact">Offer</a></li>
+                 				<li><a href="#contact">Events</a></li>
+                  				<li><a href="#contact">Experience</a></li>
+              				<li class="dropdown">
+              						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">INFO Zone <span class="caret"></span></a>
+                			 <ul class="dropdown-menu">
+                  				<li><a href="#">Process</a></li>
+                  				<li><a href="#">Query and Complaints</a></li>
+                  				<li><a href="#">Application Status</a></li>
+                  				<li role="separator" class="divider"></li>
+                  				<li class="dropdown-header">Know more</li>
+                 				<li><a href="#">Technology Partners</a></li>
+                  				<li><a href="#">Locations</a></li>
+                			 </ul>
+              				</li>
+            			 </ul>
+          				</div><!--/.nav-collapse -->
+        			</div>
+     			</nav>
+		
+		
+	<!-- 	<nav class="navbar navbar-default navbar-fixed-bottom">
+      		<div class="container">
+    			<p><span style="color:#009933"> &copy; Copyright 2015. All Rights Reserved.</span></p>
+    			
+         	</div>
+     	</nav> -->
+		
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-9"> 
+					<div class="transbox"> 
+				 		<div class="row">
+							<div class="col-lg-9">  
+		 						<img src="images/logo1.png" class="img-rounded"   width="848" height="100" span style="color:red"><br>
+		 					</div>
+						 </div>
+						 <div>
+     						<ng-view></ng-view>
+     					</div>
+		
+		   			</div>
+				</div>				
+        	</div>			
+		</div>
+	</body>
+</html>
