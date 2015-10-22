@@ -1,0 +1,48 @@
+
+<style>
+	div.padding{
+			 	padding-right: 20px;
+  			 	padding-left: 20px;
+				}
+</style>
+
+<div data-ng-controller="adminController">
+	<div class="row">
+		<div class="col-md-9">
+			<h3><span style="color:blue">&nbsp;&nbsp;List of Applied Users</span></h3><br>
+		</div>
+	</div>
+	
+	<div class="padding">
+		<table class="table table-hover"  border="2">
+			<thead>
+  				<tr class="active">
+    				<th>UserId</th>
+    				<th>Name</th>  
+    				<th>Service Name</th>             
+   					<th>Status</th>
+   					<th><select class="form-control" id="sel1" data-ng-model="status" required>
+                                  <option value="">Status</option>
+     							  <option value="Verified">Verified</option>
+     							  <option value="Rejected">Rejected</option>
+     							  <option value="Waiting">Waiting</option>
+         				</select>
+         			</th>
+       			</tr>
+			</thead>
+			<tbody>
+             		<tr data-ng-repeat="userDetails in data |filter:status:status.statusName">   
+             		
+             		          	 <td> {{ userDetails.userId }} </td>
+                    			 <td> {{ userDetails.fullName }} </td>
+                    			 <td> {{ userDetails.serviceType.serviceName }} </td>
+                    			 <td> {{ userDetails.status.status }} </td>
+                    			 <td>
+									 	<button type="button" class="btn btn-success" data-ng-click="editUser(userDetails.id)" >View</button>
+								 </td>
+             		</tr>
+             </tbody> 
+    	</table>
+	</div>
+		<pagination data-boundary-links="true" data-num-pages="noOfPages" data-current-page="currentPage" max-size="maxSize" class="pagination-small" data-previous-text="&laquo;" data-next-text="&raquo;"></pagination>
+</div>
