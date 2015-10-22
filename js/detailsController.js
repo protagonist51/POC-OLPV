@@ -50,29 +50,27 @@ app.controller('detailsController',[ '$scope', '$http', '$location', '$routePara
 			                     /*$('#nationality').typeahead({source: data});*/
 					
 					
+					
+					$scope.submitForm = function(isValid) {								/*form validation for details and showing modal for confirm details*/
+						
+						if	( $scope.items.length < 2)
+						{
+							$('#myModalErr1').modal('show');
+							return false;
+						}
+
+					  if (isValid) {
+					    	$('#saveDetails').modal('show');
+					    }
+					
+					
+					
+					 }
+					
+					
 				$scope.submit = function()															/*Register button to submit details*/
 				{	
 						
-					if	( $scope.items.length < 2)
-					{
-						$('#myModalErr1').modal('show');
-						return false;
-					}
-					
-					
-					/*$scope.submitForm = function()
-					{
-						alert("plz fill feilds");
-						 var unvalid = myForm.$error.pattern;
-						 if(unvalid)
-						 {
-							 alert("plz fill feilds");
-						 }
-						 	
-					}*/
-					
-					$('#saveDetails').modal('show');
-				
 					var formData =
 					{
 						serviceType  : {serviceId:$scope.service, serviceName:''},	
@@ -87,7 +85,7 @@ app.controller('detailsController',[ '$scope', '$http', '$location', '$routePara
 		                
 		                
 					};
-						alert($scope.serviceType);
+						// alert($scope.serviceType);
 						$http.post('userdetails', formData ).success(function(response)
 						{
 							if ($scope.items.length > 0)
