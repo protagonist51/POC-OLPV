@@ -1,102 +1,106 @@
-	app.controller('signUpController',[ '$scope', '$http', '$location', '$log', '$rootScope', function($scope, $http, $location, $log, $rootScope) {
 		
+app.controller('signUpController',[ '$scope', '$http', '$location', '$log', '$rootScope', '$window', function($scope, $http, $location, $log, $rootScope, $window) {
 		
-		
-		$scope.logoutHide = true;
-		
+	if($location.path()!= '/homepage' )
+    {
+     $scope.logoutHide = false;
+    }
+    else
+    {
+     $scope.logoutHide = true;
+    }      
 	
-		$scope.doPwdMatch=function(){
-			
-			if(($scope.password2!=="" || $scope.password2!==undefined) && $scope.passwordd !== $scope.password2){
-			$scope.pwdDonotMatch = true;
-			}else
-			$scope.pwdDonotMatch = false;
+	$scope.invalidUser=true;
+	$scope.pwdDonotMatch = false;
+	
+	$scope.checkUser = function()
+	{
+		$scope.invalidUser= true;
+		
+	}
+	
+	$scope.doPwdMatch=function(){
+
+			 if(($scope.password2 !=='' || $scope.password2==undefined ) && $scope.passwordd !== $scope.password2){
+					$scope.pwdDonotMatch = true;
+			}else{
+					$scope.pwdDonotMatch = false;
+				}
 			}
 		
-		
-		
-		
-		
 		$scope.submit = function(){
-		$scope.submitted= false;
+				
+				$scope.submitted= false;
+					
+				if($scope.passwordd == $scope.password2)
+			{
 	
-		var formData = {
-				email : $scope.email,
-				userName : $scope.userName,
-				password : $scope.password2	
-		};
+							var formData = {
+							email : $scope.email,
+							userName : $scope.userName,
+							password : $scope.password2	
+					};
 		
 		
-		$http.post('signup', formData ).success(function(response){
-		
-			$('#myModal').modal('hide');
+			      $http.post('signup', formData ).success(function(response){
+			      if(response.userName==undefined)
+				{
+					$scope.invalidUser=false;
+				}
+			    else{
 			
-			$scope.submitted=true;
-			$location.url('/homepage');
+					$('#myModal').modal('hide');
+					$scope.submitted=true;
+					$location.url('/homepage');
+			
+				}
 			
 			
-		}).error(function(error){
-		     alert(error);
-		     $('#myModal').modal('hide');
+		      }).error(function(error){
+		    
+		          $('#myModal').modal('hide');
 		    
 		     });
-		
+	  }
+	  else
+	  {
+			return $scope.pwdDonotMatch = true;
+	  }
 	};
-		
-		 /* $http.post('signup', formData ).success(function(response){
-			   if(response.userName==undefined)
-			    {
-			     $scope.invalidUser=true;
-			    }
-			   else{
-			   
-			     $('#myModal').modal('hide');
-			     $scope.submitted=true;
-			     $location.url('/homepage');
-			   
-			    }
-			   
-			   
-			  }).error(function(error){
-			      
-			       $('#myModal').modal('hide');
-			      
-			       });
-			  
-			 };
-		*/
-		
-		
-		
-		
-
 	
-		$scope.onLogin = function()
-		{
+	$scope.options = [
+	                  { id : '1', name: 'Admin' },
+	                  { id : '2', name: 'User' }
+	                 ];
+	
+	$scope.onLogin = function(){
 		
-			$scope.loger= false;
-			$scope.Error= false;
-			var formData1 = 
-			{
+		$scope.submitted= false;
+		$scope.loger= false;
+		$scope.Error= false;
+		
+			
+		var formData1 = {
 				userName : $scope.userName1,
 				password : $scope.password1,
-				role	 : $scope.role
-			};
+				role	 : {roleId:$scope.role, roleName:''}
+		};
 			
-			
-			
-			$http.post('login', formData1 ).success(function(data)
-			{
+			$http.post('login', formData1 ).success(function(data){
 				
-				 $rootScope.userId =data.userId;
-			  
-				  
+				 $window.sessionStorage.userId = data.userId;
+                 $window.sessionStorage.userName = data.userName;
+                 
+              
+                 $rootScope.userName = data.userName;
+				   
 				 if (data.userId == undefined)
 					{	
 					
 								$location.url('/homepage');
 								$scope.loger= true;
-						
+								
+								
 					}
 				 
 				
@@ -119,48 +123,45 @@
 				{
 			
 				$http.post('checkforId',data).success(function(response)
-							{
+						{
+							
+							if(response.id != null)
 								
-								if(response.id != null)
-									
-									{
-									
-									$location.url('/showdetailsforuser/'+ data.userId);
-									}
-								else {
-									
-									$location.url('/details/'+ data.userId);
-								 	}
-									
-							});
+								{
+								
+								$location.url('/showdetailsforuser/'+ data.userId);
+								}
+							else {
+								
+								$location.url('/details/'+ data.userId);
+							 	}
+						});
+				}
+		});
 		
-					}
-			   
-			  
-			});
+	}
+	
+	$scope.checkId = function(id){
+		
+		$http.get('userdetails').then(function(response) {
 			
-			
-			
-		}
+		});
+		
+	};
+	
+
+$scope.forgot = function(){
 		
 		
-			$scope.forgot = function()
-			{
-		
-		
-				var formData1 = 
-				{
+		var formData1 = {
 				email : $scope.email1
 				
-				};
+		};
 			
-				$('#urModal').modal('hide');     
+		 $('#urModal').modal('hide');     
 		
-			};
-			
+	};
 	
 	
 
 }]);
-	
-	
