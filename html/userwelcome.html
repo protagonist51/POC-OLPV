@@ -3,29 +3,36 @@
   padding-left: 150px;
   padding-right: 10px;
 }
+
+div.padding{
+ padding-right: 40px;
+  padding-left: 1px;
+		}
+
+.panel{
+ background-color: #e6ffcc;
+
+} 
+
 </style>
 
 <div class="container">
-	<br><div class="row">
-			<div class="col-lg-6">
+	<br>
+			<div class="col-lg-3">
 				<div class="panel panel-default">
-					<span style="color:blue">&nbsp;	WELCOME</span> &nbsp;	<span style="color:red"> <B> {{res.fullName |  uppercase}} </B> </span><br>
+					<span style="color:blue">&nbsp;	HELLO</span> &nbsp;	<span style="color:red"> <B> {{res.fullName |  uppercase}} </B> </span>
 				</div>
-			</div>
-			
-			<div class="col-lg-2">
-				<button type="button" id="close" class="btn btn-success" data-ng-click="Back()" ><span style="color:#006600">Back</span></button> 
-			</div>
 		</div>	
 </div>
-		
+
 <div class="container-fluid">	
 	<div class="row">
-		<div class="col-lg-9"><br><br><br>
+		<div class="col-lg-9">
 			<div ui-layout-container size="33%"  >
-				<div class="jumbotron">
-					<h4><span style="color:blue">DETAILS ENTERED BY YOU...</span></h4><br>
-						<form id="loginForm"  >
+				<div class="panel panel-primary">
+					<div class="panel-heading"><h4>DETAILS ENTERED BY YOU...</h4></div>
+						<div class="panel-body">
+							<form id="loginForm"  >
 				 			<label for="name">Full Name</label>
 				 				<span style="padding-left:63px">
 				 		 			<B>-&nbsp;	{{res.fullName		 |  uppercase}} </B>
@@ -65,24 +72,43 @@
 				 				<span style="padding-left:77px">
 				 					<B>-&nbsp;	{{res.status.status |  uppercase}} </B>
 				 				</span><br>
+				 			
 						</form>
+					</div>
+				 	<div class="panel-footer">{{res.comment}}</div>
 				</div>
 			</div>
 		</div> 
 	</div>	
 </div>
 	
-<div class="container">  
+<div class="container">
+	<div class="col-lg-9">
+	<div class="padding">
+	<div class="panel panel-primary">
+		<div class="panel-heading"><h4>DOCUMENTS...</h4></div>
    <table >
   		<tbody>
   			<tr> 
   				<td  ng-repeat="pdfs in doc">
-  		 			<iframe src="{{pdfs.docPath}}" width="400" height="500"></iframe>
+  		 			<iframe src="{{pdfs.docPath}}" width="390" height="500"></iframe>
   				</td>
  		 	</tr>
   		</tbody>
-  	</table>
-</div>
+  	</table> 
+  	</div>
+  	</div>
+  	
+  	
+  	<div class="col-lg-2">
+				<button type="button" id="close" class="btn btn-success" data-ng-click="Back()" ><span style="color:#006600">Back</span></button> 
+			</div>
+			</div>
+			</div>
+  	<br><br><br>
+  	
+
+		 
 
 	 
 	 
