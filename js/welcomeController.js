@@ -22,22 +22,7 @@ app.controller('welcomeController',[ '$scope', '$http', '$location', '$routePara
 			
 		});
 		
-		
-		
 	
-		
-	
-		$scope.Logout = function()
-		{	
-		
-			$http.post('logout', $scope.res.userId ).success(function(response)	
-					{
-						alert(response.userId);
-						$location.url('/homepage');
-					});
-			
-		}
-		
 		  $scope.Back = function(){
 			
 	    	   $location.url('/showdetailsforuser/' + $scope.res.userId );
