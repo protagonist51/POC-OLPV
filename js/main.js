@@ -1,21 +1,40 @@
-var app = angular.module('myApp', ['ngRoute', 'ngFileUpload']);
+var app = angular.module('myApp', ['ngRoute', 'ngFileUpload', 'ui.bootstrap']);
 
-app.config(function($routeProvider)
-{
+app.config(function($routeProvider) {
 	
-		$routeProvider
+	$routeProvider
     	
-        .when('/homepage', 
-        		{
-        			controller: 'signUpController',
-        			templateUrl: 'html/homepage.html',
-        	
-            	})
+        .when('/homepage', {
+        	controller: 'signUpController',
+            templateUrl: 'html/homepage.html'
+            
+            	
+        })
                
-        .when('/details/:userId', 	
+        .when('/details/:userId', {
+        	 templateUrl: 'html/details.html',
+             controller: 'detailsController'
+            	
+        })
+        
+        .when('/admin', {
+        	controller: 'adminController',
+            templateUrl: 'html/admin.html'
+            
+            	
+        })
+        
+        .when('/editUser/:id', {
+        	controller: 'adminEditController',
+            templateUrl: 'html/editUser.html'
+            
+            	
+        })
+        
+         .when('/showdetailsforuser/:userId', 	
         		{
-        	 		templateUrl: 'html/details.html',
-        	 		controller: 'detailsController'
+        	 		templateUrl: 'html/showDetails.html',
+        	 		controller: 'viewDetailsController'
             	
         		})
         
@@ -25,70 +44,33 @@ app.config(function($routeProvider)
         	 		controller: 'welcomeController'
             	
         		})
-     
-        .when('/showdetailsforuser/:userId', 	
-        		{
-        	 		templateUrl: 'html/showdetails.html',
-        	 		controller: 'viewDetailsController'
-            	
-        		})
-        		
-        .when('/admin',
-        		{
-        			controller: 'adminController',
-        			templateUrl: 'html/admin.html'
-        		
-        })
-        
-        
-        
-        .when('/editUser/:id',
-        		{
-        			controller: 'adminEditController',
-        			templateUrl: 'html/editUser.html'
-                   	
-        })
-        		
        
         .otherwise({
-        			redirectTo: '/homepage'
+            redirectTo: '/homepage'
             	
-        			});
-		
-		
-});	
-
-
-
-app.controller('LogoutCtrl',['$scope', '$http', '$location',  '$rootScope',function($scope, $http, $location,  $rootScope)          
-     {  
-	 	$scope.Logout = function()
-	 		{
-	 			$http.post('logout', $scope.userId ).success(function(response)	
-	 					{
-              				$location.url('/homepage');
-                         });
-            }
-	 		
-	 	$scope.logoutInit = function()
-	 	{
-	 		
-			if( $rootScope.userId== null )
-                  {	
-				  	$scope.logoutHide= false;
-                   }
-			else{
-				alert("else");
-				$scope.logoutHide= false;
-				}
-	 	}
-       }                                                
-]); 	
-
-
-		
-		
+        });
 	
-	    
-	
+});
 
+app.controller('LogoutCtrl',['$scope', '$http', '$location', '$window','$rootScope', function($scope, $http, $location,  $window, $rootScope)          
+                             {  
+                      		  $rootScope.Username = $window.sessionStorage.userName;
+                      		  $scope.Logout = function()
+                                {
+                              	  $http.post('logout', $window.sessionStorage.userId ).success(function(response)          	  
+                                    {
+                                      delete $window.sessionStorage.userName;
+                                      delete $window.sessionStorage.userId;
+                                      $rootScope.logoutHide= true;
+                                      $location.url('/homepage');
+                                    });
+                                }
+                                                               
+                                                  
+                                if($location.path()=='/homepage' )
+                                    {  
+                              	    $rootScope.logoutHide= true;
+                                    }
+                             }                    
+
+                      ]);  	
