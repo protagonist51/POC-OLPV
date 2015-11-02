@@ -27,14 +27,9 @@ table tr td:first-child::before {
 							</div>
 							<div class="col-md-2">
 							<br>
-								<select class="form-control" id="sel1" data-ng-model="status" required>
+								<select class="form-control" id="sel1" ng-model="status" data-ng-options="obj.id as obj.name for obj in options" ng-change="statusChange()" required>
 		                                  <option value="">Status</option>
-		     							  <option value="Open">Open</option>
-		     							  <option value="In-Progress">In-Progress</option>
-		     							  <option value="Rejected">Rejected</option>
-		     							  <option value="Verified">Verified</option>
-		     							  <option value="Closed">Closed</option>
-         						</select>
+		     					</select>
 							</div>
 						  </div>
 						<br>
@@ -52,8 +47,7 @@ table tr td:first-child::before {
        			</tr>
 			</thead>
 			<tbody>
-             		
-             		<tr data-ng-repeat="userDetails in data |filter:status:status.statusName" ng-if="userDetails.status.status !=='Closed'" >   
+             		<tr data-ng-repeat="userDetails in (data | filter:status:status.status).slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">   
              					 <td></td>
              		          	 <td> {{ userDetails.subDate | date : 'MM-dd-yyyy' }} </td>
                     			 <td> {{ userDetails.fullName }} </td>
@@ -61,10 +55,15 @@ table tr td:first-child::before {
                     			 <td> {{ userDetails.status.status }} </td>
                     			 
 								 <td>
-									 	<button type="button" class="btn btn-success" data-ng-click="editUser(userDetails.id)" >View</button>
+								<button type="button" class="btn btn-success" data-ng-click="editUser(userDetails.id)" ng-if="userDetails.status.status !=='Closed'" >View</button>
 								 </td>
              				 </tr>
             </tbody> 		 
 		</table>
-  </div>  
-</div>
+		
+  </div>
+  <select ng-model="viewby" ng-change="setItemsPerPage(viewby)"><option>5</option><option>10</option></select> records at a time.
+
+<uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" class="pagination-sm" items-per-page="itemsPerPage"></uib-pagination>
+ 
+</div><br><br>
