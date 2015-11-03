@@ -9,36 +9,51 @@ $rootScope.Username = $window.sessionStorage.userName;
 		$rootScope.logoutHide = true;
 	}
 	
-	 $scope.options = [
-	                   { id : '1', name: 'Open' },
-	                   { id : '2', name: 'In-Progress' },
-	                   { id : '3', name: 'Rejected' },
-	                   { id : '4', name: 'Verified' },
-	                   { id : '5', name: 'Closed' }
-	                   ];
+		
+	$scope.$watch('status', function()
+	{
+		var array =[];
+		//alert($scope.data.length);
+		totaldata.forEach(function(value, index, arr)
+				{
+					//console.log(index);
+			//console.log(value.status.status, $scope.status);
+
+					if(value.status.status==$scope.status)
+						{
+						//console.log(value.status.status, $scope.status);
+							array.push(value);
+						}
+					if($scope.status=='Status')
+						{
+							alert("Hello");
+							$scope.data=totaldata;
+							$scope.totalItems=totladata.length;
+							
+						}
+				})
+		$scope.data = array;		
+		$scope.totalItems = array.length;
+		console.log(array.length);
+	}		
+	)
+
+	var totaldata=[];
 	
 	$http.get('getAlldetails').success(function(response)
     	 	{
 				$scope.data = response;
-				for(var i=0; i<response.length; i++)
-					{
-						
-					console.log(response.id);
-					}
+				totaldata=response;
 				$scope.totalItems = response.length;
-		        $scope.viewby = 10;
 		        $scope.currentPage = 1;
-		        $scope.itemsPerPage = $scope.viewby;
-		        $scope.maxSize = 5; //Number of pager buttons to show
+		        $scope.itemsPerPage = 10;
+		        $scope.maxSize = 5; 
 
 		        $scope.setPage = function (pageNo) {
 		            $scope.currentPage = pageNo;
 		        };
 
-		        $scope.setItemsPerPage = function(num) {
-		            $scope.itemsPerPage = num;
-		            $scope.currentPage = 1; 
-		            }
+		        
 				
 				}).error(function(error)
                     {
@@ -68,5 +83,3 @@ $rootScope.Username = $window.sessionStorage.userName;
 	}
 
 }]);
-
-
