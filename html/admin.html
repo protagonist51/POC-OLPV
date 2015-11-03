@@ -1,69 +1,61 @@
 <style>
 div.padding{
- padding-right: 25px;
-  padding-left: 25px;
+ padding-right: 30px;
+  padding-left: 30px;
 		}
-		
-table {
-    counter-reset: serial-number;
-}
-
-table tr {
-    counter-increment: rowNumber;
-}
-
-table tr td:first-child::before {
-    content: counter(rowNumber);
-    min-width: 1em;
-    margin-right: 0.3em;
-}		
-
 </style>
 
 <div data-ng-controller="adminController">
-	<div class="row">
-							<div class="col-md-8">
-								<h3>&nbsp;&nbsp; &nbsp;<span style="color:blue">List of Applied Users</span></h3>
+<div class="row">
+							<div class="col-md-9">
+							<h3>&nbsp;&nbsp; &nbsp;<span style="color:blue">List of Applied Users</span></h3>
 							</div>
 							<div class="col-md-2">
-							<br>
-								<select class="form-control" id="sel1" ng-model="status" data-ng-options="obj.id as obj.name for obj in options" ng-change="statusChange()" required>
-		                                  <option value="">Status</option>
-		     					</select>
+									<br>
+									<select class="form-control" id="sel1" data-ng-model="status" required>
+                                  <option value="">Status</option>
+     							  <option value="Open">Open</option>
+     							  <option value="In-Progress">In-Progress</option>
+     							  <option value="Rejected">Rejected</option>
+     							  <option value="Verified">Verified</option>
+     							  <option value="Closed">Closed</option>
+         				</select>
+         			
+								
 							</div>
-						  </div>
-						<br>
+						</div>
+	
+			<br>
 		<div class="padding">
 		<table class="table table-hover" border="2" >
 			<thead>
-  				<tr>
-  					<th width="50" bgcolor="#FF8566">Si.No</th>
-    				<th width="100" bgcolor="#FF8566">Date</th>
-    				<th width="150" bgcolor="#FF8566">Name</th>  
-    				<th width="290" bgcolor="#FF8566">Service Name</th>             
-   					<th width="100" bgcolor="#FF8566">Status</th>
-   					<th width="80" bgcolor="#FF8566"></th>
+  				<tr class="active">
+  					<th>Si.No</th>
+    				
+    				<th>Name</th>  
+    				<th>Service Name</th>             
+   					<th>Status</th>
+   					<th></th>
    					
        			</tr>
 			</thead>
 			<tbody>
-             		<tr data-ng-repeat="userDetails in (data | filter:status:status.status).slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">   
-             					 <td></td>
-             		          	 <td> {{ userDetails.subDate | date : 'MM-dd-yyyy' }} </td>
+             		
+      <tr data-ng-repeat="userDetails in subdata=(data.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage)) |filter:status:status.status)" >   
+             					 
+             		          	 <td></td>
                     			 <td> {{ userDetails.fullName }} </td>
                     			 <td> {{ userDetails.serviceType.serviceName }} </td>
                     			 <td> {{ userDetails.status.status }} </td>
                     			 
 								 <td>
-								<button type="button" class="btn btn-success" data-ng-click="editUser(userDetails.id)" ng-if="userDetails.status.status !=='Closed'" >View</button>
+									 	<button type="button" class="btn btn-success" data-ng-click="editUser(userDetails.id)" ng-if="userDetails.status.status !== 'Closed'" >View</button>
 								 </td>
              				 </tr>
             </tbody> 		 
 		</table>
+		</div>
 		
-  </div>
-  <select ng-model="viewby" ng-change="setItemsPerPage(viewby)"><option>5</option><option>10</option></select> records at a time.
-
-<uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" class="pagination-sm" items-per-page="itemsPerPage"></uib-pagination>
- 
-</div><br><br>
+    <uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" class="pagination-sm" items-per-page="itemsPerPage"></uib-pagination>
+    
+</div>
