@@ -22,7 +22,7 @@ div.padding{
  <br>
 	<div class="col-lg-9">
 		<div class="panel panel-primary">
-			<div class="panel-heading"><h4>DETAILS ENTERED BY {{data.fullName |  uppercase}}..</h4></div>
+			<div class="panel-heading"><h4>DETAILS ENTERED BY {{data.fullName |  uppercase}}</h4></div>
 				<div class="panel-body">
 					<form id="loginForm" class="form-group" >
  				 		<label>&nbsp;	Full Name</label>
@@ -75,7 +75,7 @@ div.padding{
 	<div class="col-lg-9">
 		<div class="padding"> 
 			<div class="panel panel-primary"> 
-				<div class="panel-heading"><h4>DOCUMENTS...</h4></div>
+				<div class="panel-heading"><h4>DOCUMENTS</h4></div>
 		  			<table>
 		  				<tbody>
 		  					<tr> 
@@ -94,7 +94,7 @@ div.padding{
 			<div class="col-lg-4">
 				<label for="comment">Change the Status:</label>
 				<select class="form-control" ng-model="status" name="statusName" data-ng-options="obj.id as obj.name for obj in options" ng-change="statusChange()" required>
-					<option value="">Status</option>
+					<option value="">{{data.status.status}}</option>
 				</select>
 			</div>
 		</div>
