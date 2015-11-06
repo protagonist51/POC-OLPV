@@ -1,4 +1,4 @@
-var app = angular.module('myApp', ['ngRoute', 'ngFileUpload', 'ui.bootstrap']);
+var app = angular.module('myApp', ['ngRoute', 'ngFileUpload', 'ui.bootstrap', 'ngMessages']);
 
 app.config(function($routeProvider) {
 	
@@ -52,7 +52,11 @@ app.config(function($routeProvider) {
 	
 });
 
-app.controller('LogoutCtrl',['$scope', '$http', '$location', '$window','$rootScope', function($scope, $http, $location,  $window, $rootScope)          
+app.factory("myFactory", function() {
+    return "a value";
+});
+
+app.controller('LogoutCtrl',['$scope', '$http', '$location', '$window','$rootScope', function($scope, $http, $location,  $window, $rootScope, myFactory)          
                              {  
                       		  $rootScope.Username = $window.sessionStorage.userName;
                       		  $scope.Logout = function()
@@ -65,7 +69,7 @@ app.controller('LogoutCtrl',['$scope', '$http', '$location', '$window','$rootSco
                                       $location.url('/homepage');
                                     });
                                 }
-                                                               
+                      		console.log(myFactory);                             
                                                   
                                 if($location.path()=='/homepage' )
                                     {  
