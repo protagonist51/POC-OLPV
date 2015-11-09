@@ -150,17 +150,40 @@ app.controller('signUpController',[ '$scope', '$http', '$location', '$log', '$ro
 	};
 	
 
-$scope.forgot = function(){
-		
-		
-		var formData1 = {
-				email : $scope.email1
-				
-		};
-			
-		 $('#urModal').modal('hide');     
-		
-	};
+	 $scope.forgot = function()
+     {
+      var formData2 = {
+      				  userName	: $scope.userName,
+                        email 	: $scope.email1
+            			};
+      
+    
+      
+      $http.post('forgetPassword',formData2).success(function(data1)
+      		{ 
+      			
+      			if (data1.userName == undefined)
+      				{
+      				
+      				$scope.invalidUserName = true;
+      				
+      				}
+      			else{
+      				
+      				//$scope.invalidUserName = false;
+      				$('#urModal').modal('hide');   
+      		        $scope.psswdsent = true;
+      				
+      			}
+      	
+      		}).error(function(error)
+     				 {
+      			alert(error);
+      			});
+                   
+    
+            
+     };
 	
 	
 
