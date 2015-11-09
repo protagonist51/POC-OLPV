@@ -58,6 +58,18 @@
   				<strong>Error..</strong> <span style="color:black">Invalid Username or Password. Please Enter valid Role.</span>
 			</div>
 		</div>
+	</div>
+	
+	<div class="row">
+			<div class="col-lg-5">
+				<div class="alert alert-success" role="alert" ng-show = "psswdsent">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+   						<span aria-hidden="true">&times;</span>
+   						<span class="sr-only">Close</span>
+ 					</button>
+ 						<strong>Success!</strong> Your password has been sent to your email.
+				</div>
+			</div>
 	</div>		
 
 			<div class="row">
@@ -103,7 +115,7 @@
      				<input type="password" id="inputPassword" class="form-control" ng-change="doPwdMatch()" name="password" data-ng-model="password2"  placeholder="Confirm Password" required />
        			 	<span ng-show="pwdDonotMatch"> <span style="color:red">Passwords don't match.</span> </span>
      				<br>
-       				<button type="submit" ng-disabled="myForm.USERname.$error.pattern"  class="btn btn-lg btn-primary" >Register</button>
+       				<button type="submit" ng-disabled="myForm.USERname.$error.pattern"  class="btn btn-sm btn-primary" >Register</button>
       			</form>
      		</div> 
 		</div>
@@ -111,25 +123,27 @@
 </div>
 
 <div class="modal fade" id="urModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"  >
-	<div class="modal-dialog" role="document">
-    	<div class="modal-content">
-      		<div class="modal-header">
-      			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+ 	<div class="modal-dialog" role="document">
+   		<div class="modal-content">
+    		<div class="modal-header">
+       			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         		<h4 class="modal-title" id="myModalLabel">Forgot Password</h4>
       		</div>
-      		<div class="modal-body">
-      			<form data-ng-submit="forgot()" id="registerForm" class="form-signup"  >
-        			<h2 class="form-signup-heading"><span style="color:black">Please Enter your Email-id</span></h2> 
-        			<h5>Password will be sent to your Email Box</h5>
-       
-					<label path="email" for="inputUsername" class="sr-only">Email address</label>
-        			<input type="email" id="inputEmail" class="form-control" name="email" data-ng-model="email1" placeholder="Email address" requiblack autofocus /> <br>
-					<button type="submit" class="btn btn-lg btn-primary" >Submit</button>
-      			</form>
-      		</div> 
-		</div>
+     		<div class="modal-body">
+     			<form data-ng-submit="forgot()" id="registerForm" class="form-signup"  >
+      				<h2 class="form-signup-heading"><span style="color:blue">Please Enter Required Details</span></h2> 
+       					<h6>Password will be sent to your Email Box</h6>
+       						<label path="email" for="inputUsername" class="sr-only">Email address</label>
+       						<input type="text" id="userName" class="form-control" name="userName" data-ng-model="userName" placeholder="User Name" required autofocus /> <br>
+       						
+       						<input type="email" id="inputEmail" class="form-control" name="email" data-ng-model="email1" placeholder="Email address" required autofocus />
+       						<span ng-show="invalidUserName"><span style="color:red">Invalid Username or Email</span></span>  <br>
+					<button type="submit" class="btn btn-sm btn-primary" >Submit</button>
+     			</form>
+     		</div> 
+ 		</div>
 	</div>
-</div>
+</div>	
 
 
   
