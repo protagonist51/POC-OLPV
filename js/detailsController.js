@@ -1,5 +1,38 @@
+app.directive('fileModel', ['$parse', function ($parse) {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+            var model = $parse(attrs.fileModel);
+            var modelSetter = model.assign;
+            
+            element.bind('change', function(){
+                scope.$apply(function(){
+                    modelSetter(scope, element[0].files[0]);
+                });
+            });
+        }
+    };
+}]);
 
-app.controller('detailsController',[ '$scope', '$http', '$location', '$routeParams', '$filter', '$upload','$window', '$rootScope', '$upload', function($scope, $http, $location, $routeParams, $upload, $filter, $window, $rootScope, $upload)
+app.service('fileUpload', ['$http', function ($http) {
+    this.uploadFileToUrl = function(file, uploadUrl){
+        var fd = new FormData();
+        fd.append('file', file);
+        $http.post(uploadUrl, fd, {
+            transformRequest: angular.identity,
+            headers: {'Content-Type': undefined}
+       
+        })
+        .success(function(data){
+        	
+        	$scope.res=data;
+        })
+        .error(function(){
+        });
+    }
+}]);
+
+app.controller('detailsController',[ '$scope', '$http', '$location', '$routeParams', '$filter', '$window', '$rootScope', 'fileUpload', function($scope, $http, $location, $routeParams, $filter, $window, $rootScope, fileUpload)
   {
  
        $scope.userId = $routeParams.userId;
@@ -103,7 +136,7 @@ app.controller('detailsController',[ '$scope', '$http', '$location', '$routePara
 			              {
 			                for (var i = 0 ; i < $scope.items.length ; i++)
 			                {
-			                  $scope.uploadItem($scope.items[i]);
+			                  $scope.uploadFile($scope.items[i]);
 			                  
 			                }
 			              }  
@@ -114,28 +147,22 @@ app.controller('detailsController',[ '$scope', '$http', '$location', '$routePara
 //			      
 			             							
 						if (response.id != null)
-							
 						{
-							
 							$scope.viewuser = response;
 							
-						//	$location.url('/userwelcome/' + response.id);
-						//	$('#myModal').modal('show');
+							$location.url('/userwelcome/' + response.id);
+							$('#myModal').modal('show');
 							
 							$scope.Logout = function ()
 							{
 								alert(response.userId );
 								$http.post('logout',response.userId ).success(function(response)	
 										{
-									
 											$location.url('/homepage');
 										});
 							}
-						
 						}
 						
-				
-	    
 					}).error(function(error)
 							{
 								alert(error);
@@ -143,80 +170,14 @@ app.controller('detailsController',[ '$scope', '$http', '$location', '$routePara
 	   
 	};
 	
-	$scope.uploadItem = function(file){
-        var fd = new FormData();
-        fd.append('file', file);
-        $http.post('upload', fd, {
-            transformRequest: angular.identity,
-            headers: {'Content-Type': ''}
-        })
-        .success(function(resp){
-        	console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
-        })
-        .error(function(resp){
-        	 console.log('Error status: ' + resp.status);
-        });
-    }
+	$scope.uploadFile = function(file){
+        var file = $scope.myFile;
+       // console.log('file is ' );
+       // console.dir(file);
+        var uploadUrl = 'upload';
+        fileUpload.uploadFileToUrl(file, uploadUrl);
+    };
 	
-/*	$scope.uploadItem = function (file) {
-		var myfile = new Blob();
-		myfile = file;
-        $upload.upload({
-            url: 'upload',
-        	file: myfile
-        }).then(function (resp) {
-            console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
-        }, function (resp) {
-            console.log('Error status: ' + resp.status);
-        });
-	};*/
-         
-      /*   $scope.uploadItem = function(id, file)
-         {
-        	 
-        	 $scope.upload = function (file) {
-        	        Upload.upload({
-        	            url: 'upload/url',
-        	            data: {file: file, 'id': id}
-        	        }).then(function (resp) {
-        	            console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
-        	        }, function (resp) {
-        	            console.log('Error status: ' + resp.status);
-        	        });
-        	 
-        	 		var data = new FormData();
-        	 		data.append('id', id);
-        	 		data.append('file', file);
-        	 		
-        	 		$http({
-        	 				method: 'POST',
-        	 				url  :   'multipleSave',
-        	 				headers: {
-        	 	                'Content-Type': 'multipart/form-data'
-        	 	            },
-        	 			
-        	 	           headers: {'Content-Type': undefined},
-        	 	        data: data
-  	 			
-        	 				
-        	 		    $http.post('multipleSave', data, {
-        	 	        transformRequest: function(data, headersGetterFunction) {
-        	 	            return data;
-        	 	        },
-        	 	       headers: {'Content-Type': undefined}
-  
-        	 		 }).success(function(data) {
-        	            console.log("Upload Successfull");
-        	           
-        	            alert(data);
-        	           
-        	 		}).error(function(error) {
-        	 			console.log("Upload failure");
-        	             
-        	             
-        	         });
-         };
-        */
-             
+
     
  }]);
