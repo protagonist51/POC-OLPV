@@ -141,7 +141,7 @@ table tr:nth-child(even)
 						<label for="file"><span style="color:black">Please upload 2 supporting Documents</span></label>
 						<div class="row"><br>
 							<div class="col-sm-5">
-       							<input type="file" data-ng-file-select data-ng-model="item.file" id="document" file-model = "myFile"  data-uploader="uploader" multiple name="file" accept="application/pdf" class="form-control ng-pristine ng-valid"/>
+       							<input type="file" data-ng-file-select data-ng-model="item.file" id="document" data-uploader="uploader" data-file-model="myFile" accept="application/pdf" class="form-control ng-pristine ng-valid"/>
     								<span style="color:black" ><span style="font-size:10px">Maximum file size: 10 MB</span></span>
 							</div>
 						&nbsp;&nbsp;
@@ -222,6 +222,3 @@ table tr:nth-child(even)
       				</div>
       			</div>
 </div>  
-                
-
-
