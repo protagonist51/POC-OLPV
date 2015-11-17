@@ -8,6 +8,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
             element.bind('change', function(){
                 scope.$apply(function(){
                     modelSetter(scope, element[0].files[0]);
+                   // alert($scope.myFile);
                 });
             });
         }
@@ -15,9 +16,10 @@ app.directive('fileModel', ['$parse', function ($parse) {
 }]);
 
 app.service('fileUpload', ['$http', function ($http) {
-    this.uploadFileToUrl = function(file, uploadUrl){
+    this.uploadFileToUrl = function(file, id, uploadUrl){
         var fd = new FormData();
         fd.append('file', file);
+        fd.append('id', id);
         $http.post(uploadUrl, fd, {
             transformRequest: angular.identity,
             headers: {'Content-Type': undefined}
@@ -43,7 +45,6 @@ app.controller('detailsController',[ '$scope', '$http', '$location', '$routePara
        
        $rootScope.Username = $window.sessionStorage.userName;
 		
-		
 		if($location.path()!= '/homepage' )
 		{
 		   $rootScope.logoutHide = false;
@@ -56,7 +57,8 @@ app.controller('detailsController',[ '$scope', '$http', '$location', '$routePara
 		{   
 			if ($scope.item.file != undefined)
 			{
-				$scope.items.push( $scope.item);
+				
+				$scope.items.push( $scope.myFile);
 				$scope.item = {};
 				$scope.showTable=true;
 			}
@@ -90,7 +92,6 @@ app.controller('detailsController',[ '$scope', '$http', '$location', '$routePara
         $scope.result = {};
       
          
-         
          $scope.submitForm = function(isValid) {
         	 /*form validation for details and showing modal for confirm details*/
 			if (isValid){	
@@ -101,11 +102,9 @@ app.controller('detailsController',[ '$scope', '$http', '$location', '$routePara
 				}
 
 			    	$('#saveDetails').modal('show');
-			
-			
 			 }
-         
          }
+         
          $scope.nationality='';
          $scope.countries = ['Afghanistan', 'Australia', 'Bangladesh', 'Brazil', 'Britan', 'Canada', 'China', 'Denmark', 'Egypt', 'France', 'Germany', 'India', 'Indonesia', 'Iran', 'Iraq', 'Isrel', 'Italy', 'Japan', 'Nepal', 'New Zealand', 'Pakistan', 'Sri Lanka', 'Poland', 'United States', 'South Africa', 'Russia', 'Sweeden', 'Chilie', 'Spain', 'Norway', 'Mexico', 'South Korea', 'Netherland','Irelend'];
           
@@ -125,27 +124,19 @@ app.controller('detailsController',[ '$scope', '$http', '$location', '$routePara
 					userId 		 : $scope.userId,
 					subDate		 : new Date()
 	                
-	                
 				};
 										
-					
 					$http.post('userdetails', formData ).success(function(response)
 					{
-						
 						if ($scope.items.length > 0)
 			              {
 			                for (var i = 0 ; i < $scope.items.length ; i++)
 			                {
-			                  $scope.uploadFile($scope.items[i]);
-			                  
+			                  $scope.uploadFile(response.id, $scope.items[i]);
 			                }
 			              }  
 							
-//						$scope.item = $scope.items[0];
-//						
-//						$scope.uploadItem(response.id, $scope.item);
-//			      
-			             							
+
 						if (response.id != null)
 						{
 							$scope.viewuser = response;
@@ -170,14 +161,10 @@ app.controller('detailsController',[ '$scope', '$http', '$location', '$routePara
 	   
 	};
 	
-	$scope.uploadFile = function(file){
-        var file = $scope.myFile;
-       // console.log('file is ' );
-       // console.dir(file);
+	$scope.uploadFile = function(id, file){
+     //   var file = $scope.myFile;
         var uploadUrl = 'upload';
-        fileUpload.uploadFileToUrl(file, uploadUrl);
+        fileUpload.uploadFileToUrl(file, id,  uploadUrl);
     };
 	
-
-    
  }]);
