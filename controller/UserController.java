@@ -1,16 +1,14 @@
 package org.itc.controller;
 
-import java.io.BufferedOutputStream;
+
 import java.io.EOFException;
-import java.io.File;
+
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.ParseException;
+
 import java.util.List;
 import java.util.Random;
-
-import javax.mail.MessagingException;
-import javax.mail.internet.AddressException;
 
 import org.itc.model.Document;
 import org.itc.model.Role;
@@ -26,16 +24,13 @@ import org.itc.utility.SendEmail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.multipart.MultipartFile;
-
 
 
 @Controller
@@ -50,12 +45,15 @@ public class UserController {
 	@Autowired
 	private DocumentService documentService;
 	
+	
+	@Autowired
+	private SendEmail sendEmail;
+	
 		
 	@RequestMapping(value="/login",method = RequestMethod.POST, consumes={"application/json"})
     public @ResponseBody User getUserInfo(@RequestBody User user) throws EOFException  {
 		
     	try{
-    			
     			user = userService.findUser(user.getUserName(), user.getPassword(), user.getRole());
     		
     			if(user !=null)
@@ -95,16 +93,14 @@ public class UserController {
 		{
 			se.getMessage();
 			return null;
-			
 		}
-		
 	}
 	
 	@RequestMapping(value="/forgetPassword", method = RequestMethod.POST, consumes={"application/json"})
-	 public @ResponseBody User forgetPassword(@RequestBody User user) throws AddressException, MessagingException { 
-		System.out.println("inside forgetPassword");
+	 public @ResponseBody User forgetPassword(@RequestBody User user) throws Exception { 
+		System.out.println("Inside forgetPassword");
 		
-		/*for auto genrate password*/
+		/*for auto generate password*/
 		int length = 8;	
 		String alphabet = new String("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"); 
 		int n = alphabet.length();
@@ -113,23 +109,21 @@ public class UserController {
 		for (int i=0; i<length; i++) 
 		newPassword = newPassword + alphabet.charAt(r.nextInt(n)); 
 		System.out.println("Password :-"+newPassword);
-		/*---------------------------*/
 		
 		user=userService.forgetPassword(user, newPassword);
 		if(user !=null)
 		{
-			SendEmail callsendEmail = new SendEmail();
-			callsendEmail.sendingEmail(user);
+			/*SendEmail callsendEmail = new SendEmail();
+			callsendEmail.emailSender(user);*/
+			sendEmail.emailSender(user);
 	    	return user;
 		}
 		else
 		{
-			
 			System.out.println(user);
 			return user;
+			
 		}
-	
-		
 	}
 	
 	@RequestMapping(value="/logout", method = RequestMethod.POST, consumes={"application/json"})
@@ -137,14 +131,11 @@ public class UserController {
 		
 		userService.LogoutUser(userId);
 		System.out.println("inside logout");
-		
-
 	}
 	
 	
 	@RequestMapping(value="/userdetails", method = RequestMethod.POST, consumes={"application/json"})
 	public @ResponseBody UserDetails addUserDetails(@RequestBody UserDetails userDetails) throws ParseException, DataIntegrityViolationException {
-		
 				
 		if(userDetails.getId() == 0 )
 		{
@@ -164,12 +155,10 @@ public class UserController {
 	@RequestMapping(value="/viewuserdetails", method = RequestMethod.POST, consumes={"application/json"})
 	public @ResponseBody List<UserDetails> showUserDetails(@RequestBody int userId) throws ParseException {
 	
-		
 		List<UserDetails> viewuserDetails = userDetailsService.showUserDetails(userId);
 		
 		System.out.println("Inside viewuserdetails block Controller Class");
 		return  viewuserDetails;
-		
 	}
 	
 	
@@ -191,7 +180,6 @@ public class UserController {
 		System.out.println("Inside Service table");
 		
 		return servicetabledata;
-		
 		
 	}
 	
@@ -225,79 +213,29 @@ public class UserController {
 	}
 	
 	
-	
-	/*@RequestMapping(value = "/multipleSave", method = RequestMethod.POST)
-	
-	public @ResponseBody void uploadFile(@RequestParam("file") MultipartFile[] files) throws IOException {
-        			
-					System.out.println("HEEEEEEEEEEEEEEEEEEEE");
-					for (int i = 0; i < files.length; i++) {
-				        MultipartFile file = files[i];
-				        System.out.println(file);
-				        System.out.println("Inside for loop");
-				  }
-		
-		         Iterator<String> itr=request.getFileNames();
-		             System.out.println(itr);
-		             System.out.println(itr.hasNext());
-		            System.out.println(request.getFileNames());
-		             System.out.println(itr.toString());
-		             MultipartFile file= request.getFile(itr.toString());
-		             MultipartFile file1=request.getFile(itr.next());
-		             String fileName=file1.getOriginalFilename();
-		             System.out.println(fileName);
-                  
-             		 Document doc = new Document();
-            		 doc.setDocument(file.getBytes());
-           		     documentService.addItem(doc); 
-        	
-	 }*/
-	
-	/*@RequestMapping(value = "/multipleSave", method = RequestMethod.POST)
-
-	public @ResponseBody void uploadFile(MultipartHttpServletRequest request, HttpServletResponse response) throws IOException {
-
-	        Iterator<String> fileName=request.getFileNames();
-	        MultipartFile file= request.getFile(fileName.hasNext());
-	        System.out.println("file");
-	}*/
-	
-	
-	
-	/*@RequestMapping(value = "/multipleSave", method = RequestMethod.POST, consumes={})
-	public void myFileUpLoad(@PathVariable("id") int id, @RequestParam("file") MultipartFile file) throws IOException {
-		System.out.println("Inside ");
-		byte[] uploadedByte = file.getBytes();
-	}*/
-	
-	
 	@RequestMapping(value="/upload", method=RequestMethod.POST, headers=("content-type=multipart/*"))
-	public @ResponseBody String handleFileUpload(@RequestParam("file") MultipartFile file) {
-		System.out.println("Inside UpLoad");
-	        if (!file.isEmpty()) {
-	            try {
-	                byte[] bytes = file.getBytes();
-	                BufferedOutputStream stream = 
-	                        new BufferedOutputStream(new FileOutputStream(new File("")));
-	                stream.write(bytes);
-	                stream.close();
-	                return "You successfully uploaded !";
-	            } catch (Exception e) {
-	                return "You failed to upload" + e.getMessage();
-	            }
-	        } else {
-	            return "You failed to upload because the file was empty.";
-	        }
-	
+	public @ResponseBody void handleFileUpload(@RequestParam("file") MultipartFile file, @RequestParam("id") int id ) {
+		
+		String itr =  file.getOriginalFilename();
+		System.out.println(itr);
+		System.out.println("ID is:"+id);
+		
+		try {
+			  FileCopyUtils.copy(file.getBytes(), new FileOutputStream("D:/Workspace/OLPV/WebContent/documents/"+file.getOriginalFilename()));
+			
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		}
+		String s ="documents/"+file.getOriginalFilename();
+		System.out.println(s);
 	 }
-	
 	
 	@RequestMapping(value = "/viewDoc", method = RequestMethod.POST, produces={"application/json"})
 	
 	 public @ResponseBody List<Document> viewFile(@RequestBody int id) throws IOException {
 		
 		List<Document> doc = documentService.getDoc(id);
-		
 		return doc;
 	
 	}
