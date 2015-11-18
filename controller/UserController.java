@@ -209,6 +209,7 @@ public class UserController {
 	
 		UserDetails viewuserDetailsid = userDetailsService.recordforid(id);
 		return viewuserDetailsid;
+		
 	
 	}
 	
@@ -227,8 +228,11 @@ public class UserController {
 			
 			e.printStackTrace();
 		}
-		String s ="documents/"+file.getOriginalFilename();
-		System.out.println(s);
+		String filePath ="documents/"+file.getOriginalFilename();
+		System.out.println(filePath);
+		
+		documentService.addItem(filePath, id);
+		
 	 }
 	
 	@RequestMapping(value = "/viewDoc", method = RequestMethod.POST, produces={"application/json"})
