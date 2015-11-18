@@ -25,9 +25,7 @@ app.service('fileUpload', ['$http', function ($http) {
             headers: {'Content-Type': undefined}
        
         })
-        .success(function(data){
-        	
-        	$scope.res=data;
+        .success(function(){
         })
         .error(function(){
         });
@@ -40,7 +38,7 @@ app.controller('detailsController',[ '$scope', '$http', '$location', '$routePara
        $scope.userId = $routeParams.userId;
  
        $scope.items = [];
-       $scope.item = {};
+       $scope.myFile = {};
        $scope.showTable = false;
        
        $rootScope.Username = $window.sessionStorage.userName;
@@ -53,13 +51,13 @@ app.controller('detailsController',[ '$scope', '$http', '$location', '$routePara
 		   $rootScope.logoutHide = true;
 		}
    
-       $scope.addItem = function (item)								/*	for add button	*/							
+       $scope.addItem = function (myFile)								/*	for add button	*/							
 		{   
-			if ($scope.item.file != undefined)
+			if ($scope.myFile.file != undefined)
 			{
 				
 				$scope.items.push( $scope.myFile);
-				$scope.item = {};
+				$scope.myFile = {};
 				$scope.showTable=true;
 			}
 			else {
@@ -132,6 +130,7 @@ app.controller('detailsController',[ '$scope', '$http', '$location', '$routePara
 			              {
 			                for (var i = 0 ; i < $scope.items.length ; i++)
 			                {
+			                	 $scope.items[i].name =  $scope.items[i].name+ '_'+i+ '_'
 			                  $scope.uploadFile(response.id, $scope.items[i]);
 			                }
 			              }  
