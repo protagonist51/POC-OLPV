@@ -2,14 +2,15 @@ package org.itc.controller;
 
 
 import java.io.EOFException;
-
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.ParseException;
-
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
+import org.apache.tomcat.jni.File;
+import org.eclipse.core.resources.IResource;
 import org.itc.model.Document;
 import org.itc.model.Role;
 import org.itc.model.ServiceType;
@@ -210,28 +211,28 @@ public class UserController {
 		UserDetails viewuserDetailsid = userDetailsService.recordforid(id);
 		return viewuserDetailsid;
 		
-	
 	}
 	
 	
 	@RequestMapping(value="/upload", method=RequestMethod.POST, headers=("content-type=multipart/*"))
 	public @ResponseBody void handleFileUpload(@RequestParam("file") MultipartFile file, @RequestParam("id") int id ) {
 		
-		String itr =  file.getOriginalFilename();
-		System.out.println(itr);
-		System.out.println("ID is:"+id);
+		long currentTime = System.currentTimeMillis();
 		
 		try {
-			  FileCopyUtils.copy(file.getBytes(), new FileOutputStream("D:/Workspace/OLPV/WebContent/documents/"+file.getOriginalFilename()));
+			  FileCopyUtils.copy(file.getBytes(), new FileOutputStream("D:/Workspace/OLPV/WebContent/documents/"+currentTime+file.getOriginalFilename()));
 			
 		} catch (IOException e) {
 			
 			e.printStackTrace();
 		}
-		String filePath ="documents/"+file.getOriginalFilename();
-		System.out.println(filePath);
+		String docPath ="documents/"+currentTime+file.getOriginalFilename();
+		System.out.println(docPath);
 		
-		documentService.addItem(filePath, id);
+		Document doc = new Document(id, docPath);
+		
+		documentService.addItem(doc);
+		file.refreshLocal(IResource.DEPTH_ZERO, null);
 		
 	 }
 	
@@ -245,4 +246,3 @@ public class UserController {
 	}
 
 }
-
