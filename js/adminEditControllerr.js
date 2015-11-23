@@ -17,7 +17,7 @@ app.controller('adminEditController',[ '$scope', '$http', '$location', '$routePa
          
        }).error(function(error)
             {
-        alert(error);
+    	   console.log(error);
     });
        
       $http.post('viewDoc', $scope.id).success(function(re){
@@ -28,7 +28,7 @@ app.controller('adminEditController',[ '$scope', '$http', '$location', '$routePa
      	  
        }).error(function(error)
                {
-           alert(error);
+    	   console.log(error);
        });
       
        $scope.statusChange = function()
@@ -58,7 +58,7 @@ app.controller('adminEditController',[ '$scope', '$http', '$location', '$routePa
         	  			
         	      }).error(function(error)
         	              {
-        	          alert(error);
+        	    	  console.log(error);
         	      });
     	   
        };
