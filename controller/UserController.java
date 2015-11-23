@@ -232,7 +232,8 @@ public class UserController {
 		Document doc = new Document(id, docPath);
 		
 		documentService.addItem(doc);
-		file.refreshLocal(IResource.DEPTH_ZERO, null);
+		
+		//file.refreshLocal(IResource.DEPTH_ZERO, null);
 		
 	 }
 	
