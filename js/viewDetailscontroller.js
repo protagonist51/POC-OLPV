@@ -19,7 +19,7 @@ app.controller('viewDetailsController',[ '$scope', '$http', '$location', '$route
 						}).error(function(error)
 								
 								{
-								alert(error);
+							console.log(error);
 								});
 			
 						$scope.viewdetails =function(id)
