@@ -3,11 +3,6 @@ package org.itc.dao;
 import java.sql.SQLException;
 import java.util.List;
 
-
-
-
-
-
 import org.itc.model.Role;
 import org.itc.model.User;
 import org.itc.model.UserStatus;
