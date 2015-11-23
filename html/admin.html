@@ -32,7 +32,7 @@ table tr:nth-child(even)
 <div data-ng-controller="adminController">
 	<div class="row">
 							<div class="col-md-9">
-								<h3>&nbsp;&nbsp; &nbsp;<span style="color:blue">List of Applied Users</span></h3>
+								<h3>&nbsp;&nbsp; &nbsp;<span style="color:#80003f"><B>List of Applied Users</B></span></h3>
 							</div>
 							<div class="col-md-2">
 							<br>
@@ -66,7 +66,7 @@ table tr:nth-child(even)
              		          	 <td> {{ userDetails.subDate | date : 'MM-dd-yyyy' }} </td>
                     			 <td> {{ userDetails.fullName }} </td>
                     			 <td> {{ userDetails.serviceType.serviceName }} </td>
-                    			 <td> {{ userDetails.status.status }} </td>
+                    			 <td><span style="color:#661a00"><B> {{ userDetails.status.status }}</B></span> </td>
                     			 
 								 <td>
 								<button type="button" class="btn btn-xs btn-success" data-ng-click="editUser(userDetails.id)" ng-if="userDetails.status.status !=='Closed'" >View</button>
