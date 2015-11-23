@@ -52,7 +52,7 @@ var totaldata=[];
 		        $scope.itemsPerPage = 9;
 		        $scope.maxSize = 5; 
 		        
-		        alert($scope.data.length);
+		        
 		        
 		        
 		        $scope.setPage = function (pageNo) {
@@ -62,7 +62,7 @@ var totaldata=[];
 				
 				}).error(function(error)
                     {
-                alert(error);
+					console.log(error);
             });
 	
 	
