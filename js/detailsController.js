@@ -84,7 +84,7 @@ app.controller('detailsController',[ '$scope', '$http', '$location', '$routePara
 						
 					}).error(function(error)
 				        {
-				          alert(error);
+						console.log(error);
 				          });
          
         $scope.result = {};
@@ -104,7 +104,7 @@ app.controller('detailsController',[ '$scope', '$http', '$location', '$routePara
          }
          
          $scope.nationality='';
-         $scope.countries = ['Afghanistan', 'Australia', 'Bangladesh', 'Brazil', 'Britan', 'Canada', 'China', 'Denmark', 'Egypt', 'France', 'Germany', 'India', 'Indonesia', 'Iran', 'Iraq', 'Isrel', 'Italy', 'Japan', 'Nepal', 'New Zealand', 'Pakistan', 'Sri Lanka', 'Poland', 'United States', 'South Africa', 'Russia', 'Sweeden', 'Chilie', 'Spain', 'Norway', 'Mexico', 'South Korea', 'Netherland','Irelend'];
+         $scope.countries = ['Afghanistan', 'Australia', 'Bangladesh', 'Brazil', 'Britan', 'Canada', 'China', 'Denmark', 'Egypt', 'France', 'Germany', 'India', 'Maldives', 'Slovakia', 'Indonesia', 'Iran', 'Iraq', 'Isrel', 'Italy', 'Japan', 'Nepal', 'New Zealand', 'Pakistan', 'Sri Lanka', 'Poland', 'United States', 'South Africa', 'Russia', 'Sweeden', 'Chilie', 'Spain', 'Norway', 'Mexico', 'South Korea', 'Netherland', 'Vietnam', 'Vatican City', 'Irelend'];
           
            
          $scope.submit = function()
@@ -130,8 +130,10 @@ app.controller('detailsController',[ '$scope', '$http', '$location', '$routePara
 			              {
 			                for (var i = 0 ; i < $scope.items.length ; i++)
 			                {
-			                	 $scope.items[i].name =  $scope.items[i].name+ '_'+i+ '_'
+			                	 //$scope.items[i].name =  $scope.items[i].name+ '_'+i+ '_';
+			                	
 			                  $scope.uploadFile(response.id, $scope.items[i]);
+			                  console.log($scope.items[i].name);
 			                }
 			              }  
 							
@@ -145,7 +147,7 @@ app.controller('detailsController',[ '$scope', '$http', '$location', '$routePara
 							
 							$scope.Logout = function ()
 							{
-								alert(response.userId );
+								
 								$http.post('logout',response.userId ).success(function(response)	
 										{
 											$location.url('/homepage');
@@ -155,7 +157,7 @@ app.controller('detailsController',[ '$scope', '$http', '$location', '$routePara
 						
 					}).error(function(error)
 							{
-								alert(error);
+						console.log(error);
 							});
 	   
 	};
