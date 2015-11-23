@@ -178,7 +178,7 @@ app.controller('signUpController',[ '$scope', '$http', '$location', '$log', '$ro
       	
       		}).error(function(error)
      				 {
-      			alert(error);
+      			console.log(error);
       			});
                    
     
