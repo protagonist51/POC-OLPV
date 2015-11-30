@@ -18,9 +18,13 @@
 	      padding-left:500px
 	     } 
 	     
+	     
+
+	     
 	      .navbar-default {
 	  	 background-color: #ECF9FF;
 	 	 border-color: #271f1e;
+	 	 min-height:5px !important;
 		} 
 	
 		  div.transbox
@@ -139,24 +143,70 @@
 		          			<h5>&copy; 2015, Bangalore City Police. All rights reserved.</h5>
 		          		</div>
 		          
-		          		<div class="col-sm-5">
+		          		<div class="col-sm-3">
 		          
 		          			<h5>The Commissioner of Police,
 					 			Bangalore City Police,
 					 			No:1 Infantry Road, Bangalore - 1. </h5>
 		          		</div>
 		          
-		          		<div class="col-sm-3">
+		          		<div class="col-sm-5">
 		          			<h5>Follow us:  
-		          			
-		        				<a href="http://twitter.com" onclick="_gaq.push(['_trackEvent', 'exit', 'footer', 'Twitter']);"><i class="fa fa-twitter"></i> Twitter</a> &nbsp;
-		        				<a href="http://google.com" onclick="_gaq.push(['_trackEvent', 'exit', 'footer', 'Google+']);"><i class="fa fa-google-plus"></i> Google+</a> &nbsp;
-		        				<a href="http://facebook.com" onclick="_gaq.push(['_trackEvent', 'exit', 'footer', 'MIT']);"><i class="fa fa-building"></i> Facebook</a>
-		         			</h5>
+		         				<a href='https://twitter.com' target='_blank'>
+                        			<img src="images/twitter.jpg" width="32" height="32" /></a> <a href='https://www.facebook.com' target='_blank'>
+                            		<img src="images/fb.jpg" width="32" height="32" /></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            		<a style='text-decoration: none;' href="#mail" data-toggle="modal" data-target="#ur2Modal">
+                                <img style="vertical-align: right" width="25px" src="images/Feedback_sm1.png" />
+                                COMPLAINT/FEEDBACK</a>&nbsp;&nbsp;&nbsp;
+                                <a style='text-decoration: none;' href="#mail" data-toggle="modal" data-target="#ur1Modal">
+                                <img style='vertical-align: middle' src='images/Download_sm.png' />
+                                APPLICATION FORMS</a>
+                            </h5>
+            
 		         		</div>
 		       		</div>
 		    	 </div>
    		   </footer>
 	  </nav>
+	  <div class="modal fade" id="ur1Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"  >
+  <div class="modal-dialog">
+    				 <!-- Modal content-->
+      					<div class="modal-content">
+        					<div class="modal-header">
+          						<h3 class="modal-title"><span style="color:green">Application Forms</span></h3>
+       		 				</div>
+        					<div class="modal-body">
+          						<h5><span style="color:red">Please Log-in or Register to download offline forms.</span></h5>
+        					</div>
+        					<div class="modal-footer">
+          						<button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+        					</div>
+      					</div>
+      				</div>
+</div>
+
+<div class="modal fade" id="ur2Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" ng-controller="signUpController" >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">COMPLAINT/FEEDBACK</h4>
+      </div>
+      <div class="modal-body">
+      <form data-ng-submit="forgot12()" id="registerForm" class="form-signup"  >
+        <h3 class="form-signup-heading"><span style="color:red">Please enter below details </span></h3> 
+        
+	<label path="email" for="inputUsername" class="sr-only">Email address</label>
+        <input type="email" id="inputEmail" class="form-control" name="email" data-ng-model="email1" placeholder="Email address" required autofocus /> <br>
+        
+		  		<textarea class="form-control" rows="3" id="comment" ng-model="comment" placeholder="Your Compliant/Feedback" required ></textarea><br>
+		<button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">Submit</button>
+      </form>
+      </div> 
+    
+</div>
+</div>
+</div>
+
     </body>
 </html>
