@@ -184,7 +184,6 @@ app.controller('signUpController',[ '$scope', '$http', '$location', '$log', '$ro
     
             
      };
-	
-	
-
+     
+    
 }]);
