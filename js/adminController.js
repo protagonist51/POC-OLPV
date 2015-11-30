@@ -13,16 +13,13 @@ var totaldata=[];
 	$scope.$watch('status', function()
 			{
 				var array =[];
-				
 				if($scope.status!=undefined)
 				{
 					totaldata.forEach(function(value, arr)
 						{
-							
 							if(value.status.status==$scope.status)
 								{
 									array.push(value);
-									
 								}
 							console.log($scope.status);
 							
@@ -31,7 +28,6 @@ var totaldata=[];
 						$scope.totalItems = array.length;
 						console.log(array.length);
 						
-						
 				}
 				else{
 					$scope.data = totaldata;		
@@ -39,12 +35,11 @@ var totaldata=[];
 					console.log(totaldata.length);
 				}
 						
-				
 			})		
 		
 	$http.get('getAlldetails').success(function(response)
     	 	{
-		$scope.blocked = true;
+				$scope.blocked = true;
 				$scope.data = response;
 				totaldata=response;
 				$scope.totalItems = response.length;
@@ -52,26 +47,20 @@ var totaldata=[];
 		        $scope.itemsPerPage = 9;
 		        $scope.maxSize = 5; 
 		        
-		        
-		        
-		        
 		        $scope.setPage = function (pageNo) {
 		            $scope.currentPage = pageNo;
 		        };
 
-				
 				}).error(function(error)
                     {
 					console.log(error);
             });
-	
 	
 	$scope.editUser = function(id)
 	{
 		
 		$location.url('/editUser/'+ id);
 	}
-
 
 }]);
 
