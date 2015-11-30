@@ -25,8 +25,8 @@ div.padding{
 			<div class="panel-heading"><h4>DETAILS ENTERED BY {{data.fullName |  uppercase}}</h4></div>
 				<div class="panel-body">
 					<form id="loginForm" class="form-group" >
- 				 		<label>&nbsp;	Full Name</label>
-				 		<span style="padding-left:63px">
+ 				 		<label>&nbsp;	FULL NAME</label>
+				 		<span style="padding-left:51px">
 				 			<B>-&nbsp;	{{data.fullName		 |  uppercase}} </B>
 				 		</span><br>
 				 		
@@ -36,7 +36,7 @@ div.padding{
 						 </span><br>
 						 
 						 <label>&nbsp;	GENDER 	</label>
-						 <span style="padding-left:71px">
+						 <span style="padding-left:72px">
 						 	<B>-&nbsp;	{{data.gender		 |  uppercase}} </B>
 						 </span><br>
 						 	
@@ -46,27 +46,27 @@ div.padding{
 						</span><br>
 						 	
 						<label>&nbsp;	CONTACT NO</label>
-						<span style="padding-left:40px">
+						<span style="padding-left:41px">
 							<B>-&nbsp;	{{data.contactNumber  |  uppercase}} </B>
 						</span><br>
 						 	
 						<label>&nbsp;	ADDRESS	</label>
-						<span style="padding-left:65px">
+						<span style="padding-left:66px">
 							<B>-&nbsp;	{{data.address		 |  uppercase}} </B>
 						</span><br>
 						
 						<label>&nbsp;	DOB	</label>
-						<span style="padding-left:100px">
+						<span style="padding-left:101px">
 							<B>-&nbsp;	{{data.dateofbirth | date : 'MM-dd-yyyy'}} </B>
 						</span><br>
 						 	 
 						<label>&nbsp;	STATUS	</label>
-						<span style="padding-left:78px">
+						<span style="padding-left:79px">
 							<B>-&nbsp;	{{data.status.status |  uppercase}} </B>
 						</span><br>	
        			   </form>
        		   </div>
-       		<div class="panel-footer">{{data.comment}}</div>
+       		<div class="panel-footer" ng-if="data.comment">{{data.comment}}</div>
    		</div>
 	</div>
 </div>
@@ -107,7 +107,7 @@ div.padding{
 			</div>
 		</div>
 		<br>
-		<button type="submit" class="btn btn-success" >Submit</button> &nbsp;&nbsp;&nbsp;
-		<button type="button" class="btn btn-warning" data-ng-click="comeback()" >Back &nbsp;</button>
-	</form> <br>
+		<button type="submit" class="btn btn-sm btn-success" >Submit</button> &nbsp;&nbsp;&nbsp;
+		<button type="button" class="btn btn-sm btn-warning" data-ng-click="comeback()" >Back &nbsp;</button>
+	</form> <br><br>
 </div>
