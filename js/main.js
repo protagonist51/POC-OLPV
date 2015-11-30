@@ -52,9 +52,9 @@ app.config(function($routeProvider) {
 	
 });
 
-app.factory("myFactory", function() {
+/*app.factory("myFactory", function() {
     return "a value";
-});
+});*/
 
 app.controller('LogoutCtrl',['$scope', '$http', '$location', '$window','$rootScope', function($scope, $http, $location,  $window, $rootScope, myFactory)          
                              {  
@@ -75,6 +75,8 @@ app.controller('LogoutCtrl',['$scope', '$http', '$location', '$window','$rootSco
                                     {  
                               	    $rootScope.logoutHide= true;
                                     }
-                             }                    
+                             }   
 
-                      ]);  	
+
+
+]);  	
