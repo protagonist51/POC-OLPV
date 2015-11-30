@@ -5,12 +5,11 @@ import java.io.EOFException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.Date;
+
 import java.util.List;
 import java.util.Random;
 
-import org.apache.tomcat.jni.File;
-import org.eclipse.core.resources.IResource;
+
 import org.itc.model.Document;
 import org.itc.model.Role;
 import org.itc.model.ServiceType;
